@@ -1,0 +1,11 @@
+{
+  "question":"Qual estratégia está mais alinhada com boas práticas para evitar explodir a janela de contexto?",
+  "alternatives":[
+    "Manter histórico recente + sumarizar partes antigas + preservar preferências.",
+    "Enviar apenas a resposta anterior.",
+    "Enviar sempre o histórico completo.",
+    "Apagar tudo a cada mensagem."
+  ],
+  "difficulty":"medium",
+  "subject":"IA"
+}

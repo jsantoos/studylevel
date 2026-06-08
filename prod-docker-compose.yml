@@ -1,0 +1,62 @@
+services:
+
+  backend:
+    build: ./backend
+
+    container_name: study_backend
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./backend:/app
+
+    env_file:
+      - ./backend/.env
+
+    environment:
+      PYTHONUNBUFFERED: 1
+
+    command: >
+      uvicorn app.main:app
+      --host 0.0.0.0
+      --port 8000
+
+    depends_on:
+      - postgres
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        NEXT_PUBLIC_API_URL: http://192.168.25.217:8000
+
+    container_name: study_frontend
+
+    ports:
+      - "3000:3000"
+
+    environment:
+      NODE_ENV: production
+
+    depends_on:
+      - backend
+
+  postgres:
+    image: postgres:16
+
+    container_name: study_postgres
+
+    environment:
+      POSTGRES_USER: study_user
+      POSTGRES_PASSWORD: study_pass
+      POSTGRES_DB: study_platform
+
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
